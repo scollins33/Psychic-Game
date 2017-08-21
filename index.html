@@ -7,9 +7,59 @@
 
     <title>Psychic Game</title>
 
+    <!-- Reset and Style -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!-- Javascript file -->
+    <script rel="script" type="text/javascript" src="assets/javascript/game.js"></script>
 
 </head>
 <body>
+    <div class="container text-center">
+        <!-- Header and Instructions -->
+        <div class="row">
+            <h1>The Psychic Game</h1>
+            <h4>Try to guess the letter I've chosen!</h4>
+        </div>
 
+        <!-- Scoreboard -->
+        <div class="row">
+            <div class="col-sm-1 col-md-3"></div>
+            <div class="col-sm-10 col-md-6">
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="text-center">Wins</th>
+                        <th class="text-center">Losses</th>
+                    </tr>
+                    <tr>
+                        <td>totalWins</td>
+                        <td>totalLosses</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-1 col-md-3"></div>
+        </div>
+
+        <!-- Current game chances and history -->
+        <div class="row text-left">
+            <div class="col-sm-1 col-md-3"></div>
+            <div class="col-sm-10 col-md-6">
+                <div class="well">
+                    <strong>Remaining Guesses:</strong>
+                    <span>chancesLeft</span>
+                </div>
+                <div class="well">
+                    <strong>Guesses So Far:</strong>
+                    <span>guessHistory</span>
+                </div>
+                <div class="well">
+                    <strong>Round Result:</strong>
+                    <span>result</span>
+                </div>
+            </div>
+            <div class="col-sm-1 col-md-3"></div>
+        </div>
+    </div>
 </body>
 </html>
