@@ -1,12 +1,9 @@
 // Set up global variables
-var totalWins = 0;
-var totalLosses = 0;
 var ALPHABET = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
                 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
                 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-var statusWin = 'You win! I\'ll have to think of another letter...';
-var statusMiss = 'Wrong, take another guess...';
-var statusLoss = 'You lose! Let me think of another letter...';
+var totalWins = 0;
+var totalLosses = 0;
 
 // used to validate key press is playable
 // loops through ALPHABET to check if input is a letter
@@ -34,8 +31,26 @@ function checkGuess(pComp, pUser) {
 
 // plays a round of the game
 function playRound() {
-    // reset guess limit
+    // reset guess limit and initialize guess array
     var guessLimit = 9;
+    var guessArray = [];
+
+    // link js to html tags
+    // wins
+    var spanWins = document.getElementById('totalWins');
+    spanWins.innerHTML = totalWins;
+    // losses
+    var spanLosses = document.getElementById('totalLosses');
+    spanLosses.innerHTML = totalLosses;
+    // guess limit reset
+    var spanGuessLimit = document.getElementById('guessLimit');
+    spanGuessLimit.innerHTML = guessLimit;
+    // guess history reset
+    var spanGuessHistory = document.getElementById('roundGuesses');
+    spanGuessHistory.innerHTML = 'No guesses yet...';
+    // game status reset
+    var spanRoundStatus = document.getElementById('statusRound');
+    spanRoundStatus.innerHTML = 'Game started. Make your first guess!';
 
     // generate computer choice
     var roll26 = Math.floor(Math.random() * 26);
@@ -50,19 +65,26 @@ function playRound() {
             var result = checkGuess(compChoice, userChoice);
 
             if (result === true) {
-                // user wins the game
+                // user wins the game, wins + 1
                 //status = win
+                spanRoundStatus = 'You win! I\'ll have to think of another letter...';
+                totalWins++;
+                return true;
             }
             else {
                 guessLimit--;
+
                 if (guessLimit < 0) {
                     // player loses the round
                     // status = loss
+                    spanRoundStatus = 'You lose! Let me think of another letter...';
+                    totalLosses++;
                     return false;
                 }
                 else {
                     // player loses 1 guess and new guess starts
                     // status = miss
+                    spanRoundStatus = 'Wrong, take another guess...';
                 }
             }
         }
@@ -70,4 +92,8 @@ function playRound() {
 
 }
 
-playRound();
+document.onkeyup = function(event) {
+    if (event.key === "Enter") {
+        playRound();
+    }
+};
