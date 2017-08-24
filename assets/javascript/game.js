@@ -17,18 +17,6 @@ function validOption(pKey) {
     return false;
 }
 
-// determine result of single guess
-function checkGuess(pComp, pUser) {
-    if (pComp === pUser) {
-        // user wins game
-        return true;
-    }
-    else {
-        // user misses round
-        return false;
-    }
-}
-
 // plays a round of the game
 function playRound() {
     // reset guess limit and initialize guess array
@@ -62,29 +50,33 @@ function playRound() {
         if (validOption(event.key)) {
             // assign user guess
             var userChoice = event.key;
-            var result = checkGuess(compChoice, userChoice);
 
-            if (result === true) {
-                // user wins the game, wins + 1
-                //status = win
-                spanRoundStatus = 'You win! I\'ll have to think of another letter...';
+            if (userChoice === compChoice) {
+                // user wins the game, wins + 1, reset game
+                spanRoundStatus.innerHTML = 'You win! I\'ll have to think of another letter...';
                 totalWins++;
-                return true;
+                spanWins.innerHTML = totalWins;
+                playRound();
             }
             else {
+                // subtract guess
                 guessLimit--;
+                spanGuessLimit.innerHTML = guessLimit;
 
-                if (guessLimit < 0) {
-                    // player loses the round
-                    // status = loss
-                    spanRoundStatus = 'You lose! Let me think of another letter...';
+                // update the guess history
+                guessArray.push(userChoice);
+                spanGuessHistory.innerHTML = guessArray;
+
+                if (guessLimit === 0) {
+                    // player loses the game, losses +1, reset game
+                    spanRoundStatus.innerHTML = 'You lose! Let me think of another letter...';
                     totalLosses++;
-                    return false;
+                    spanLosses.innerHTML = totalLosses;
+                    playRound();
                 }
                 else {
-                    // player loses 1 guess and new guess starts
-                    // status = miss
-                    spanRoundStatus = 'Wrong, take another guess...';
+                    // player loses 1 guess and new guess starts, status = miss
+                    spanRoundStatus.innerHTML = 'Wrong, take another guess...';
                 }
             }
         }
